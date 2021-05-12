@@ -23,6 +23,41 @@ public class PalindromeLinkedList {
     }
 
     public static boolean isPalindrome(ListNode head) {
-        return false;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        ListNode head2 = reverse(slow);
+        ListNode n1 = head;
+        ListNode n2 = head2;
+        boolean result = true;
+
+        while (n1 != n2) {
+            if (n1.value != n2.value) {
+                result = false;
+                break;
+            }
+            n1 = n1.next;
+            n2 = n2.next;
+        }
+        reverse(head2);
+
+        return result;
+    }
+
+    private static ListNode reverse(ListNode head) {
+        ListNode prev = null;
+        ListNode next = head.next;
+        while (head != null) {
+            head.next = prev;
+            prev = head;
+            head = next;
+            if (next != null)
+                next = next.next;
+        }
+        return prev;
     }
 }
