@@ -63,4 +63,29 @@ public class HowSum {
         memo.put(target, bestOne);
         return bestOne;
     }
+
+    public static List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> results = new ArrayList<>();
+        return results;
+    }
+
+    private static void combinationSum(int[] candidates, int target, List<Integer> currentPath,
+                                List<List<Integer>> results) {
+        if (target == 0) {
+            List<Integer> list = new ArrayList<>(currentPath);
+            results.add(list);
+            return;
+        }
+
+        if (target < 0) return;
+
+        for (int i = 0; i < candidates.length; i++) {
+            if (candidates[i] > target) continue;
+
+            currentPath.add(candidates[i]);
+            int rem = target - candidates[i];
+            combinationSum(candidates, rem, currentPath, results);
+            currentPath.remove(currentPath.size() - 1);
+        }
+    }
 }
